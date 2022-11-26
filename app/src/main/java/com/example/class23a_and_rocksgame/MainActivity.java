@@ -11,6 +11,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -46,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshUI() {
         if (gameManager.isLose()) {
+            showToast("Game Over");
             stopTimer();
-            openScorePage();
+            finish();
         } else {
             for (int i = 0; i < gameManager.getWrong(); i++) {
                 main_IMG_hearts[i].setVisibility(View.INVISIBLE);
@@ -55,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openScorePage() {
-        Intent intent = new Intent(this, ScoreActivity.class);
-        startActivity(intent);
-        finish();
+    private void showToast(String string) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, string, duration);
+        toast.show();
     }
 
     private void findViews() {
@@ -107,43 +110,6 @@ public class MainActivity extends AppCompatActivity {
         }
         main_IMG_rocks[0][gameManager.getNewRock()].setVisibility(View.VISIBLE);
     }
-
-    private void update(){
-        for (int i = 0; i < gameManager.ROWS; i++) {
-            for (int j = 0; j < gameManager.COLS; j++) {
-                if(gameManager.activeRocks[i][j] == 0)
-                    main_IMG_rocks[i][j].setVisibility(View.INVISIBLE);
-                else
-                    main_IMG_rocks[i][j].setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    private void updateRocksView(){
-        int i,j;
-        for (i = 0; i < gameManager.COLS; i++){
-            for(j = 0; j < gameManager.ROWS; j++){
-                if (gameManager.activeRocks[j][i] == 1){
-                    if(j < gameManager.ROWS-1){
-                        gameManager.activeRocks[j][i] = 0;
-                        gameManager.activeRocks[j+1][i] = 1;
-                        if (i < gameManager.COLS-1)
-                            i++;
-                    }
-                    else {
-                        gameManager.activeRocks[j][i] = 0;
-                        if (gameManager.checkAccident() == 1)
-                            vibrate();
-                        refreshUI();
-                        if(gameManager.getWrong() != main_IMG_hearts.length)
-                            gameManager.getNewRock();
-                    }
-                }
-            }
-        }
-        update();
-    }
-
 
     private void initViews() {
         main_BTN_left.setOnClickListener(new OnClickListener() {
@@ -195,4 +161,42 @@ public class MainActivity extends AppCompatActivity {
             v.vibrate(500);
         }
     }
+
+    private void updateRocksView(){
+        for (int i = 0; i < gameManager.COLS; i++){
+            for(int j = 0; j < gameManager.ROWS; j++){
+                if (gameManager.activeRocks[j][i] == 1){
+                    if(j < gameManager.ROWS-1){
+                        gameManager.activeRocks[j][i] = 0;
+                        gameManager.activeRocks[j+1][i] = 1;
+                        if (i < gameManager.COLS-1)
+                            i++;
+                    }
+                    else {
+                        gameManager.activeRocks[j][i] = 0;
+                        if (gameManager.checkAccident() == 1) {
+                            vibrate();
+                            showToast("You lost your " + gameManager.getWrong() + " life");
+                        }
+                        refreshUI();
+                        if(gameManager.getWrong() != main_IMG_hearts.length)
+                            gameManager.getNewRock();
+                    }
+                }
+            }
+        }
+        update();
+    }
+
+    private void update(){
+        for (int i = 0; i < gameManager.ROWS; i++) {
+            for (int j = 0; j < gameManager.COLS; j++) {
+                if(gameManager.activeRocks[i][j] == 0)
+                    main_IMG_rocks[i][j].setVisibility(View.INVISIBLE);
+                else
+                    main_IMG_rocks[i][j].setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
 }

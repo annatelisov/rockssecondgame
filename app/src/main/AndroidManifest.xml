@@ -13,13 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Class23Aandrocksgame"
         tools:targetApi="31">
-        <activity
-            android:name=".ScoreActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
 
 
         <activity

@@ -55,6 +55,7 @@ public class GameManager {
         return 0;
     }
 
+
     public int getNewRock(){
         setRockPlace(getRandom(COLS));
         activeRocks[0][getRockPlace()] = 1;
