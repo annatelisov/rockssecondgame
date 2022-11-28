@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     final Handler handler = new Handler();
     final int DELAY = 1000;
+    private int index = 0;
     private MaterialButton main_BTN_left;
     private MaterialButton main_BTN_right;
     private ShapeableImageView[] main_IMG_hearts;
@@ -198,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        index++;
+        if(index == 3)
+            gameManager.getNewRock();
         update();
     }
 
