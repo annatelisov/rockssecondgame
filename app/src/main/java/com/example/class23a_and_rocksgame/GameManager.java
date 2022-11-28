@@ -6,27 +6,21 @@ public class GameManager {
 
     final int ROWS = 4;
     final int COLS = 3;
+    final int Lifes = 3;
     private int wrong = 0;
     private int life;
     public int carPlace;
-    public int rockPlace;
     public int[][] activeRocks = new int[ROWS][COLS];
 
-    public GameManager(int life) {
-        this.life = life;
+    public GameManager() {
+        this.life = Lifes;
     }
 
-    public void setRockPlace(int rockPlace) {
-        this.rockPlace = rockPlace;
-    }
     public void setCarPlace(int place) {
         this.carPlace = place;
     }
     public int getCarPlace(){
         return this.carPlace;
-    }
-    public int getRockPlace(){
-        return this.rockPlace;
     }
 
 
@@ -47,7 +41,7 @@ public class GameManager {
         return getCarPlace();
     }
 
-    public int checkAccident() {
+    public int checkAccident(int rockPlace) {
         if(carPlace == rockPlace) {
             wrong++;
             return 1;
@@ -56,20 +50,13 @@ public class GameManager {
     }
 
 
-    public int getNewRock(){
-        setRockPlace(getRandom(COLS));
-        activeRocks[0][getRockPlace()] = 1;
-        return getRockPlace();
+    public void getNewRock(){
+        activeRocks[0][new Random().nextInt(COLS)] = 1;
     }
 
 
     public boolean isLose() {
         return wrong == life;
     }
-
-    public int getRandom(int num){
-        return new Random().nextInt(num);
-    }
-
 
 }

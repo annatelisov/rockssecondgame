@@ -16,8 +16,6 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     final Handler handler = new Handler();
     final int DELAY = 1000;
-    final int Lifes = 3;
-    private Timer timer;
     private MaterialButton main_BTN_left;
     private MaterialButton main_BTN_right;
     private ShapeableImageView[] main_IMG_hearts;
@@ -39,17 +35,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gameManager = new GameManager(Lifes);
+        gameManager = new GameManager();
         findViews();
         initViews();
     }
 
+    private void openScorePage() {
+        Intent intent = new Intent(this, ScoreActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     private void refreshUI() {
         if (gameManager.isLose()) {
-            showToast("Game Over");
             stopTimer();
-            finish();
+            openScorePage();
         } else {
             for (int i = 0; i < gameManager.getWrong(); i++) {
                 main_IMG_hearts[i].setVisibility(View.INVISIBLE);
@@ -108,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
                 main_IMG_rocks[i][j].setVisibility(View.INVISIBLE);
             }
         }
-        main_IMG_rocks[0][gameManager.getNewRock()].setVisibility(View.VISIBLE);
+        gameManager.getNewRock();
+        update();
     }
 
     private void initViews() {
@@ -151,6 +152,18 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimer();
+    }
+
     private void vibrate() {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
@@ -174,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else {
                         gameManager.activeRocks[j][i] = 0;
-                        if (gameManager.checkAccident() == 1) {
+                        if (gameManager.checkAccident(i) == 1) {
                             vibrate();
                             showToast("You lost your " + gameManager.getWrong() + " life");
                         }
