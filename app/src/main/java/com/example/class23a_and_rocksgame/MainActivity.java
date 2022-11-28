@@ -179,20 +179,20 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < gameManager.COLS; i++){
             for(int j = 0; j < gameManager.ROWS; j++){
                 if (gameManager.activeRocks[j][i] == 1){
-                    if(j < gameManager.ROWS-1){
-                        gameManager.activeRocks[j][i] = 0;
-                        gameManager.activeRocks[j+1][i] = 1;
-                        if (i < gameManager.COLS-1)
+                    if(j != gameManager.ROWS-1){
+                        gameManager.setActiveRocks(j, i, 0);
+                        gameManager.setActiveRocks(j+1, i, 1);
+                        if (i != gameManager.COLS-1)
                             i++;
                     }
                     else {
-                        gameManager.activeRocks[j][i] = 0;
+                        gameManager.setActiveRocks(j, i, 0);
                         if (gameManager.checkAccident(i) == 1) {
                             vibrate();
                             showToast("You lost your " + gameManager.getWrong() + " life");
                         }
                         refreshUI();
-                        if(gameManager.getWrong() != main_IMG_hearts.length)
+                        if(gameManager.getWrong() != gameManager.Lifes)
                             gameManager.getNewRock();
                     }
                 }

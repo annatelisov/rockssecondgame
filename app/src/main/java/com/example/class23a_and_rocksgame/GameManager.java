@@ -1,5 +1,7 @@
 package com.example.class23a_and_rocksgame;
 
+import android.view.View;
+
 import java.util.Random;
 
 public class GameManager {
@@ -21,6 +23,10 @@ public class GameManager {
     }
     public int getCarPlace(){
         return this.carPlace;
+    }
+
+    public void setActiveRocks(int row, int col, int num){
+        this.activeRocks[row][col] = num;
     }
 
 
@@ -51,7 +57,7 @@ public class GameManager {
 
 
     public void getNewRock(){
-        activeRocks[0][new Random().nextInt(COLS)] = 1;
+        setActiveRocks(0, new Random().nextInt(COLS), 1);
     }
 
 
