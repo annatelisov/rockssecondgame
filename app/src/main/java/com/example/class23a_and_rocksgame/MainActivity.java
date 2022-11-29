@@ -200,8 +200,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         index++;
-        if(index == 3)
+        if(index == 3) {
             gameManager.getNewRock();
+            index = 0;
+        }
         update();
     }
 
