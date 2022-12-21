@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScoreActivity">
+    tools:context=".ScoreActivity"
+    android:padding="32dp"
+    android:orientation="vertical"
+    android:keepScreenOn="true">
 
 
+    <FrameLayout
+        android:id="@+id/score_LAY_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="32dp"
+        android:background="#9C27B0"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/score_LBL_score"
+    <FrameLayout
+        android:id="@+id/score_LAY_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:background="#E91E63"
+        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+    />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/score_BTN_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="50sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="Game over"/>
+        android:text="Go to start"/>
 
 
-
-</RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
