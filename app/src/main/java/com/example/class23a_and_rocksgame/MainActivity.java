@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void openScorePage() {
         Intent intent = new Intent(this, ScoreActivity.class);
-        intent.putExtra(FragmentList.KEY_SCORE,score);
         startActivity(intent);
         finish();
     }

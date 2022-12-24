@@ -65,7 +65,6 @@ public class StartActivity extends AppCompatActivity {
     private void openGamePage(String chose) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(MainActivity.KEY_STATUS,chose);
-        intent.putExtra(FragmentList.KEY_NAME,main_LBL_name.getText());
         startActivity(intent);
         finish();
     }
