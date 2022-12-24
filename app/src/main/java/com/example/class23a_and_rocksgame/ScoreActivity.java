@@ -27,6 +27,9 @@ public class ScoreActivity extends AppCompatActivity {
         fragmentList = new FragmentList();
         fragmentMap = new FragmentMap();
 
+        findViews();
+        initViews();
+
         getSupportFragmentManager().beginTransaction().add(R.id.score_LAY_list, fragmentList).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.score_LAY_map, fragmentMap).commit();
     }
@@ -41,12 +44,12 @@ public class ScoreActivity extends AppCompatActivity {
         score_BTN_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openStartPage("true");
+                openStartPage();
             }
         });
     }
 
-    private void openStartPage(String chose) {
+    private void openStartPage() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
         finish();

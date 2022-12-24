@@ -59,7 +59,7 @@ public class moveDecoretor {
                 if (System.currentTimeMillis() - timeStamp > 500) {
                     timeStamp = System.currentTimeMillis();
                     if (callBack_moves != null) {
-                        callBack_moves.car1Step();
+                        callBack_moves.car5Step();
                     }
                 }
             }
@@ -67,7 +67,7 @@ public class moveDecoretor {
                 if (System.currentTimeMillis() - timeStamp > 500) {
                     timeStamp = System.currentTimeMillis();
                     if (callBack_moves != null) {
-                        callBack_moves.car2Step();
+                        callBack_moves.car4Step();
                     }
                 }
             }
@@ -83,7 +83,7 @@ public class moveDecoretor {
                 if (System.currentTimeMillis() - timeStamp > 500) {
                     timeStamp = System.currentTimeMillis();
                     if (callBack_moves != null) {
-                        callBack_moves.car4Step();
+                        callBack_moves.car2Step();
                     }
                 }
             }
@@ -91,7 +91,7 @@ public class moveDecoretor {
                 if (System.currentTimeMillis() - timeStamp > 500) {
                     timeStamp = System.currentTimeMillis();
                     if (callBack_moves != null) {
-                        callBack_moves.car5Step();
+                        callBack_moves.car1Step();
                     }
                 }
             }
